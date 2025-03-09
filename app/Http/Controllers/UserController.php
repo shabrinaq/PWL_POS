@@ -9,41 +9,45 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function index()
-    {
-        // $user = UserModel::find(1);
-        // $user = UserModel::where('level_id', 1)->first();
-        // $user = UserModel::firstWhere('level_id', 1);
-        /* $user = UserModel::findOr(1, ['username', 'nama'], function() {
-            abort(404);
-        }); */
-        /* $user = UserModel::findOr(20, ['username', 'nama'], function () {
-            abort(404);
-        }); */
-        // $user = UserModel::findOrFail(1);
-        // $user = UserModel::where('username', 'manager9')->firstOrFail();
-        // $user = UserModel::where('level_id', 2)->count();
-       
-        //  $user = UserModel::firstOrCreate(
-        /*    $user = UserModel::firstOrNew(
-                [
-                'username' => 'manager',
-                'nama' => 'Manager',
-            ]
-            ); */ 
-
-        // $user = UserModel::firstOrCreate(
-            $user = UserModel::firstOrNew(
-            [
-                // 'username' => 'manager22',
-                'username' => 'manager33',
-                // 'nama' => 'Manager Dua Dua',
-                'nama' => 'Manager Tiga Tiga',
-                'password' => Hash::make('12345'),
-                'level_id' => 2
-            ],
-        );
+    {   
+    /*  $user = UserModel::create([
+            'username' => 'manager55',
+            'nama' => 'Manager55',
+            'password' => Hash::make('12345'),
+            'level_id' => 2,
+        ]);
         $user->save();
-
-        return view('user', ['data' => $user]);
+        
+        $user->username = 'manager56';
+        
+        $user->isDirty(); // true
+        $user->isDirty('username'); // true
+        $user->isDirty('nama'); // false
+        $user->isDirty(['nama', 'username']); // true
+        
+        $user->isClean(); // false
+        $user->isClean('username'); // false
+        $user->isClean('nama'); // true
+        $user->isClean(['nama', 'username']); // false
+        $user->save();
+        
+        $user->isDirty(); // false
+        $user->isClean(); // true
+        dd($user->isDirty()); */
+        
+        $user = UserModel::create([
+            'username' => 'manager11',
+            'nama' => 'Manager11',
+            'password' => Hash::make('12345'),
+            'level_id' => 2,
+        ]);
+        $user->username = 'manager12';
+        $user->save();
+        
+        $user->wasChanged(); //true
+        $user->wasChanged('username'); //true
+        $user->wasChanged(['username', 'level_id']); //true
+        $user->wasChanged('nama'); //false
+        dd($user->wasChanged(['nama', 'username'])); //true
     }
 }
