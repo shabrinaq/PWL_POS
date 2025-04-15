@@ -333,6 +333,7 @@ class UserController extends Controller
         } 
     }
 
+    // Tambahan JS 6
     public function showAjax($id)
     {
      $user = UserModel::with('level')->find($id);

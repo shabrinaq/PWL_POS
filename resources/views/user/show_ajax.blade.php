@@ -57,3 +57,5 @@
         });
     });
 </script>
+
+// Tambahan JS 6
