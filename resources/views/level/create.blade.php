@@ -39,5 +39,3 @@
     </div>
 </div>
 @endsection
-
-// commit awal terhapus
