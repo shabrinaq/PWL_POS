@@ -332,4 +332,13 @@ class UserController extends Controller
             }
         } 
     }
+
+    public function showAjax($id)
+    {
+     $user = UserModel::with('level')->find($id);
+     return view('user.show_ajax', compact('user'));
+    }
 }
+
+
+// commit awal terhapus
