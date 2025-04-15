@@ -46,3 +46,5 @@ Route::group(['prefix' => 'level'], function () {
     Route::put('/{id}', [LevelController::class, 'update']);
     Route::delete('/{id}', [LevelController::class, 'delete']);
 });
+
+// comiit awal terhapus
