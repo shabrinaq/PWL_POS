@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\UserController;
@@ -55,4 +57,14 @@ Route::prefix('kategori')->group(function () {
     Route::get('/{id}/edit', [KategoriController::class, 'edit']);
     Route::put('/{id}', [KategoriController::class, 'update']);
     Route::delete('/{id}', [KategoriController::class, 'delete']);
+});
+
+Route::prefix('barang')->group(function () {
+    Route::get('/', [BarangController::class, 'index'])->name('barang.index'); // Menampilkan daftar barang
+    Route::get('create', [BarangController::class, 'create'])->name('barang.create'); // Menampilkan form tambah barang
+    Route::post('store', [BarangController::class, 'store'])->name('barang.store'); // Menyimpan barang baru
+    Route::get('{id}', [BarangController::class, 'show'])->name('barang.show'); // Menampilkan detail barang
+    Route::get('{id}/edit', [BarangController::class, 'edit'])->name('barang.edit'); // Menampilkan form edit barang
+    Route::put('{id}', [BarangController::class, 'update'])->name('barang.update'); // Update data barang
+    Route::delete('{id}', [BarangController::class, 'destroy'])->name('barang.destroy'); // Hapus barang
 });
