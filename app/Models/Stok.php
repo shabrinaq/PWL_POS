@@ -15,4 +15,16 @@ class Stok extends Model
     // Kolom yang ada di tabel
     protected $fillable = ['barang_id', 'user_id', 'stok_tanggal', 'stok_jumlah']; 
     public $timestamps = true; 
+
+     // relasi barang
+     public function barang()
+     {
+         return $this->belongsTo(Barang::class, 'barang_id', 'barang_id');
+     }
+ 
+     // relasi user
+     public function user()
+     {
+         return $this->belongsTo(UserModel::class, 'user_id', 'user_id');
+     }
 }

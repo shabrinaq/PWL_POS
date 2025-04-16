@@ -4,6 +4,7 @@
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\StokController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -67,4 +68,14 @@ Route::prefix('barang')->group(function () {
     Route::get('{id}/edit', [BarangController::class, 'edit'])->name('barang.edit'); // Menampilkan form edit barang
     Route::put('{id}', [BarangController::class, 'update'])->name('barang.update'); // Update data barang
     Route::delete('{id}', [BarangController::class, 'destroy'])->name('barang.destroy'); // Hapus barang
+});
+
+Route::prefix('stok')->group(function () {
+    Route::get('/', [StokController::class, 'index'])->name('stok.index'); // Menampilkan daftar stok
+    Route::get('create', [StokController::class, 'create'])->name('stok.create'); // Menampilkan form tambah stok
+    Route::post('store', [StokController::class, 'store'])->name('stok.store'); // Menyimpan stok baru
+    Route::get('{id}', [StokController::class, 'show'])->name('stok.show'); // Menampilkan detail stok
+    Route::get('{id}/edit', [StokController::class, 'edit'])->name('stok.edit'); // Menampilkan form editstok
+    Route::put('{id}', [StokController::class, 'update'])->name('stok.update'); // Update data stok
+    Route::delete('{id}', [StokController::class, 'destroy'])->name('stok.destroy'); // Hapus stok
 });
