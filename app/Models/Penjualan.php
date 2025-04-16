@@ -17,4 +17,10 @@ class Penjualan extends Model
     protected $fillable = ['user_id', 'pembeli', 'penjualan_kode', 'penjualan_tanggal'];
 
     public $timestamps = true;
+
+    // relasi ke user
+    public function user()
+    {
+        return $this->belongsTo(UserModel::class, 'user_id', 'user_id');
+    }
 }

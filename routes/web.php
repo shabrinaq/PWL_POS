@@ -4,6 +4,8 @@
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\PenjualanDetailController;
 use App\Http\Controllers\StokController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
@@ -75,7 +77,27 @@ Route::prefix('stok')->group(function () {
     Route::get('create', [StokController::class, 'create'])->name('stok.create'); // Menampilkan form tambah stok
     Route::post('store', [StokController::class, 'store'])->name('stok.store'); // Menyimpan stok baru
     Route::get('{id}', [StokController::class, 'show'])->name('stok.show'); // Menampilkan detail stok
-    Route::get('{id}/edit', [StokController::class, 'edit'])->name('stok.edit'); // Menampilkan form editstok
+    Route::get('{id}/edit', [StokController::class, 'edit'])->name('stok.edit'); // Menampilkan form edit stok
     Route::put('{id}', [StokController::class, 'update'])->name('stok.update'); // Update data stok
     Route::delete('{id}', [StokController::class, 'destroy'])->name('stok.destroy'); // Hapus stok
+});
+
+Route::prefix('penjualan')->group(function () {
+    Route::get('/', [PenjualanController::class, 'index'])->name('penjualan.index'); // Menampilkan daftar penjualan
+    Route::get('create', [PenjualanController::class, 'create'])->name('penjualan.create'); // Menampilkan form tambah penjualan
+    Route::post('store', [PenjualanController::class, 'store'])->name('penjualan.store'); // Menyimpan penjualan baru
+    Route::get('{id}', [PenjualanController::class, 'show'])->name('penjualan.show'); // Menampilkan detail penjualan 
+    Route::get('{id}/edit', [PenjualanController::class, 'edit'])->name('penjualan.edit'); // Menampilkan form edit penjualan 
+    Route::put('{id}', [PenjualanController::class, 'update'])->name('penjualan.update'); // Update data penjualan 
+    Route::delete('{id}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy'); // Hapus penjualan 
+});
+
+Route::group(['prefix' => 'penjualan_detail'], function () {
+    Route::get('/', [PenjualanDetailController::class, 'index'])->name('penjualan_detail.index');
+    Route::get('/create', [PenjualanDetailController::class, 'create'])->name('penjualan_detail.create');
+    Route::post('/', [PenjualanDetailController::class, 'store'])->name('penjualan_detail.store');
+    Route::get('/{id}', [PenjualanDetailController::class, 'show'])->name('penjualan_detail.show');
+    Route::get('/{id}/edit', [PenjualanDetailController::class, 'edit'])->name('penjualan_detail.edit');
+    Route::put('/{id}', [PenjualanDetailController::class, 'update'])->name('penjualan_detail.update');
+    Route::delete('/{id}', [PenjualanDetailController::class, 'destroy'])->name('penjualan_detail.destroy');
 });
