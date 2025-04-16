@@ -19,12 +19,12 @@
         <table class="table table-bordered table-striped table-hover table-sm">
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th>ID</th>
                     <th>Kode Barang</th>
                     <th>Nama Barang</th>
                     <th>Harga Beli</th>
                     <th>Harga Jual</th>
-                    <th>Aksi</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>

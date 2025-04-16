@@ -62,6 +62,12 @@
                   <p>Sales Transactions</p>
               </a>
           </li>
+          <li class="nav-item">
+              <a href="{{ url('/penjualan_detail') }}" class="nav-link {{ ($activeMenu == 'penjualan_detail') ? 'active' : '' }}">
+                  <i class="nav-icon far fa-user"></i>
+                  <p>Sales Transaction Details</p>
+              </a>
+          </li>
       </ul>
   </nav>
 </div>

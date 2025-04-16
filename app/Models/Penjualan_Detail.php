@@ -17,4 +17,16 @@ class Penjualan_Detail extends Model
     protected $fillable = ['penjualan_id', 'barang_id', 'harga', 'jumlah'];
 
     public $timestamps = true;
+
+    // Relasi dengan model Penjualan
+    public function penjualan()
+    {
+        return $this->belongsTo(Penjualan::class, 'penjualan_id', 'penjualan_id');
+    }
+
+    // Relasi dengan model Barang
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class, 'barang_id', 'barang_id');
+    }
 }
