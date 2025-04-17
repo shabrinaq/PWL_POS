@@ -43,16 +43,18 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::group(['prefix' => 'level'], function () {
-    Route::get('/', [LevelController::class, 'index'])->name('index');
-    Route::get('/create', [LevelController::class, 'create']);
-    Route::post('/', [LevelController::class, 'store']);
-    Route::get('/{id}', [LevelController::class, 'show']);
-    Route::get('/{id}/edit', [LevelController::class, 'edit']);
-    Route::put('/{id}', [LevelController::class, 'update']);
-    Route::delete('/{id}', [LevelController::class, 'delete']);
+    Route::get('/', [LevelController::class, 'index']);  // menampilkan halaman daftar level
+    Route::get('/create', [LevelController::class, 'create']);  // menampilkan halaman form tambah level
+    Route::post('/', [LevelController::class, 'store']);  // menyimpan data level baru
+    Route::get('/{id}', [LevelController::class, 'show']);  // menampilkan detail level
+    Route::get('/{id}/edit', [LevelController::class, 'edit']);  // menampilkan halaman form edit level
+    Route::put('/{id}', [LevelController::class, 'update']);  // menyimpan perubahan data level
+    Route::delete('/{id}', [LevelController::class, 'delete']); // untuk menghapus data level non-AJAX
 });
+
 Route::group(['prefix' => 'kategori'], function () {
-    Route::get('/', [KategoriController::class, 'index'])->name('index');
+    Route::get('/', [KategoriController::class, 'index']);
+    Route::post('/list', [KategoriController::class, 'list']);
     Route::get('/create', [KategoriController::class, 'create']);
     Route::post('/', [KategoriController::class, 'store']);
     Route::get('/{id}', [KategoriController::class, 'show']);
