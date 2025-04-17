@@ -33,8 +33,7 @@ class LevelController extends Controller
     ]);
 }
 
-
-   /* public function list(Request $request)
+/* Public function list(Request $request)
     {
     $users = LevelModel::select('user_id', 'username', 'nama', 'level_id')
         ->with('level');
@@ -191,5 +190,3 @@ class LevelController extends Controller
         }
     }
 }
-
-// commit awal terhapus
