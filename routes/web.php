@@ -51,8 +51,7 @@ Route::group(['prefix' => 'level'], function () {
     Route::put('/{id}', [LevelController::class, 'update']);
     Route::delete('/{id}', [LevelController::class, 'delete']);
 });
-
-Route::prefix('kategori')->group(function () {
+Route::group(['prefix' => 'kategori'], function () {
     Route::get('/', [KategoriController::class, 'index'])->name('index');
     Route::get('/create', [KategoriController::class, 'create']);
     Route::post('/', [KategoriController::class, 'store']);
@@ -62,7 +61,7 @@ Route::prefix('kategori')->group(function () {
     Route::delete('/{id}', [KategoriController::class, 'delete']);
 });
 
-Route::prefix('barang')->group(function () {
+Route::group(['prefix' => 'barang'], function () {
     Route::get('/', [BarangController::class, 'index'])->name('barang.index'); // Menampilkan daftar barang
     Route::get('create', [BarangController::class, 'create'])->name('barang.create'); // Menampilkan form tambah barang
     Route::post('store', [BarangController::class, 'store'])->name('barang.store'); // Menyimpan barang baru
@@ -72,7 +71,7 @@ Route::prefix('barang')->group(function () {
     Route::delete('{id}', [BarangController::class, 'destroy'])->name('barang.destroy'); // Hapus barang
 });
 
-Route::prefix('stok')->group(function () {
+Route::group(['prefix' => 'stok'], function () {
     Route::get('/', [StokController::class, 'index'])->name('stok.index'); // Menampilkan daftar stok
     Route::get('create', [StokController::class, 'create'])->name('stok.create'); // Menampilkan form tambah stok
     Route::post('store', [StokController::class, 'store'])->name('stok.store'); // Menyimpan stok baru
@@ -82,7 +81,7 @@ Route::prefix('stok')->group(function () {
     Route::delete('{id}', [StokController::class, 'destroy'])->name('stok.destroy'); // Hapus stok
 });
 
-Route::prefix('penjualan')->group(function () {
+Route::group(['prefix' => 'penjualan'], function () {
     Route::get('/', [PenjualanController::class, 'index'])->name('penjualan.index'); // Menampilkan daftar penjualan
     Route::get('create', [PenjualanController::class, 'create'])->name('penjualan.create'); // Menampilkan form tambah penjualan
     Route::post('store', [PenjualanController::class, 'store'])->name('penjualan.store'); // Menyimpan penjualan baru
