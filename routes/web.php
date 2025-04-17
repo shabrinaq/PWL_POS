@@ -65,6 +65,7 @@ Route::group(['prefix' => 'kategori'], function () {
 
 Route::group(['prefix' => 'barang'], function () {
     Route::get('/', [BarangController::class, 'index'])->name('barang.index'); // Menampilkan daftar barang
+    Route::post('/list', [BarangController::class, 'list'])->name('barang.list');
     Route::get('create', [BarangController::class, 'create'])->name('barang.create'); // Menampilkan form tambah barang
     Route::post('store', [BarangController::class, 'store'])->name('barang.store'); // Menyimpan barang baru
     Route::get('{id}', [BarangController::class, 'show'])->name('barang.show'); // Menampilkan detail barang

@@ -15,7 +15,22 @@
         @if (session('error'))
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
-        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Filter:</label>
+                    <div class="col-3">
+                        <select class="form-control" id="filter_kategori">
+                            <option value="">- Semua -</option>
+                            @foreach($barang as $item)
+                                <option value="{{ $item->barang_id }}">{{ $item->barang_nama }}</option>
+                            @endforeach
+                        </select>
+                        <small class="form-text text-muted">Barang Pengguna</small>
+                    </div>
+                </div>
+            </div>
+        </div>
         <table class="table table-bordered table-striped table-hover table-sm">
             <thead>
                 <tr>
@@ -45,13 +60,15 @@
                         </form>
                     </td>
                 </tr>
-                @empty
-                <tr>
-                    <td colspan="6" class="text-center">Tidak ada barang tersedia.</td>
-                </tr>
-                @endforelse
+                @endforeach
             </tbody>
         </table>
     </div>
 </div>
 @endsection
+
+@push('js')
+<script>
+
+</script>
+@endpush
