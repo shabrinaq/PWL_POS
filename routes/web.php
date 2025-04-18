@@ -76,6 +76,7 @@ Route::group(['prefix' => 'barang'], function () {
 
 Route::group(['prefix' => 'stok'], function () {
     Route::get('/', [StokController::class, 'index'])->name('stok.index'); // Menampilkan daftar stok
+    Route::post('/list', [StokController::class, 'list'])->name('stok.list');
     Route::get('create', [StokController::class, 'create'])->name('stok.create'); // Menampilkan form tambah stok
     Route::post('store', [StokController::class, 'store'])->name('stok.store'); // Menyimpan stok baru
     Route::get('{id}', [StokController::class, 'show'])->name('stok.show'); // Menampilkan detail stok
