@@ -9,23 +9,31 @@ use Illuminate\Http\Request;
 class BarangController extends Controller
 {
     // Tampilkan semua barang
-    public function index()
+    public function index(Request $request)
     {
         $breadcrumb = (object) [
             'title' => 'Daftar Barang',
             'list' => ['Home', 'Barang']
         ];
-
         $page = (object) [
             'title' => 'Barang yang tersedia'
         ];
-
         $activeMenu = 'barang';
-
-        $barang = Barang::all();
-
-        return view('barang.index', compact('breadcrumb', 'page', 'activeMenu', 'barang'));
+    
+        $kategori = Kategori::all();
+    
+        $query = Barang::query();
+    
+        // Filter berdasarkan kategori jika ada
+        if ($request->has('kategori_id') && $request->kategori_id != '') {
+            $query->where('kategori_id', $request->kategori_id);
+        }
+    
+        $barang = $query->get();
+    
+        return view('barang.index', compact('breadcrumb', 'page', 'activeMenu', 'barang', 'kategori'));
     }
+    
 
     // Tampilkan form tambah barang
     public function create()
