@@ -10,22 +10,30 @@ use Illuminate\Http\Request;
 class StokController extends Controller
 {
     // Tampilkan semua stok
-    public function index()
+    public function index(Request $request)
     {
         $breadcrumb = (object) [
             'title' => 'Daftar Stok',
             'list' => ['Home', 'Stok']
         ];
-
         $page = (object) [
-            'title' => 'Data stok barang yang masuk'
+            'title' => 'Stok yang tercatat dalam sistem'
         ];
-
         $activeMenu = 'stok';
 
-        $stok = Stok::with(['barang', 'user'])->get();
+        $barang = Barang::all();
+        $user = UserModel::all();
 
-        return view('stok.index', compact('breadcrumb', 'page', 'activeMenu', 'stok'));
+        $query = Stok::with(['barang', 'user']);
+
+        // Filter berdasarkan barang_id jika ada
+        if ($request->has('barang_id') && $request->barang_id != '') {
+            $query->where('barang_id', $request->barang_id);
+        }
+
+        $stok = $query->get();
+
+        return view('stok.index', compact('breadcrumb', 'page', 'activeMenu', 'stok', 'barang', 'user'));
     }
 
     // Tampilkan form tambah stok
@@ -35,11 +43,9 @@ class StokController extends Controller
             'title' => 'Tambah Stok',
             'list' => ['Home', 'Stok', 'Tambah']
         ];
-
         $page = (object) [
-            'title' => 'Tambah Data Stok'
+            'title' => 'Tambah Stok Baru'
         ];
-
         $activeMenu = 'stok';
 
         $barang = Barang::all();
@@ -55,15 +61,10 @@ class StokController extends Controller
             'barang_id' => 'required|exists:m_barang,barang_id',
             'user_id' => 'required|exists:m_user,user_id',
             'stok_tanggal' => 'required|date',
-            'stok_jumlah' => 'required|integer|min:1',
+            'stok_jumlah' => 'required|integer|min:1'
         ]);
 
-        Stok::create([
-            'barang_id' => $request->barang_id,
-            'user_id' => $request->user_id,
-            'stok_tanggal' => $request->stok_tanggal,
-            'stok_jumlah' => $request->stok_jumlah,
-        ]);
+        Stok::create($request->all());
 
         return redirect('/stok')->with('success', 'Data stok berhasil disimpan.');
     }
@@ -81,11 +82,9 @@ class StokController extends Controller
             'title' => 'Detail Stok',
             'list' => ['Home', 'Stok', 'Detail']
         ];
-
         $page = (object) [
-            'title' => 'Detail Stok Barang'
+            'title' => 'Detail Stok'
         ];
-
         $activeMenu = 'stok';
 
         return view('stok.show', compact('breadcrumb', 'page', 'activeMenu', 'stok'));
@@ -97,22 +96,20 @@ class StokController extends Controller
         $stok = Stok::find($id);
 
         if (!$stok) {
-            return redirect()->route('stok.index')->with('error', 'Data stok tidak ditemukan.');
+            return redirect('/stok')->with('error', 'Data tidak ditemukan.');
         }
 
         $breadcrumb = (object) [
             'title' => 'Edit Stok',
             'list' => ['Home', 'Stok', 'Edit']
         ];
-
         $page = (object) [
             'title' => 'Edit Stok'
         ];
+        $activeMenu = 'stok';
 
         $barang = Barang::all();
         $user = UserModel::all();
-
-        $activeMenu = 'stok';
 
         return view('stok.edit', compact('breadcrumb', 'page', 'activeMenu', 'stok', 'barang', 'user'));
     }
@@ -124,7 +121,7 @@ class StokController extends Controller
             'barang_id' => 'required|exists:m_barang,barang_id',
             'user_id' => 'required|exists:m_user,user_id',
             'stok_tanggal' => 'required|date',
-            'stok_jumlah' => 'required|integer|min:1',
+            'stok_jumlah' => 'required|integer|min:1'
         ]);
 
         $stok = Stok::find($id);
@@ -137,13 +134,13 @@ class StokController extends Controller
             'barang_id' => $request->barang_id,
             'user_id' => $request->user_id,
             'stok_tanggal' => $request->stok_tanggal,
-            'stok_jumlah' => $request->stok_jumlah,
+            'stok_jumlah' => $request->stok_jumlah
         ]);
 
         return redirect('/stok')->with('success', 'Data stok berhasil diperbarui.');
     }
 
-    // Hapus stok
+    // Hapus data stok
     public function destroy($id)
     {
         $stok = Stok::find($id);
