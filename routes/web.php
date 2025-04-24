@@ -43,13 +43,21 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::group(['prefix' => 'level'], function () {
-    Route::get('/', [LevelController::class, 'index']);  // menampilkan halaman daftar level
-    Route::get('/create', [LevelController::class, 'create']);  // menampilkan halaman form tambah level
-    Route::post('/', [LevelController::class, 'store']);  // menyimpan data level baru
-    Route::get('/{id}', [LevelController::class, 'show']);  // menampilkan detail level
-    Route::get('/{id}/edit', [LevelController::class, 'edit']);  // menampilkan halaman form edit level
-    Route::put('/{id}', [LevelController::class, 'update']);  // menyimpan perubahan data level
-    Route::delete('/{id}', [LevelController::class, 'delete']); // untuk menghapus data level non-AJAX
+    Route::get('/', [LevelController::class, 'index']); // menampilkan halaman awal level
+    Route::post('/list', [LevelController::class, 'list']); // menampilkan data level untuk datatables
+    Route::get('/create', [LevelController::class, 'create']); // halaman form tambah level (non-ajax)
+    Route::post('/', [LevelController::class, 'store']); // simpan data level (non-ajax)
+    Route::get('/create_ajax', [LevelController::class, 'create_ajax']); // form tambah level (ajax)
+    Route::post('/ajax', [LevelController::class, 'store_ajax']); // simpan data level (ajax)
+    Route::get('/{id}', [LevelController::class, 'show']); // detail level (non-ajax)
+    Route::get('/{id}/edit', [LevelController::class, 'edit']); // form edit level (non-ajax)
+    Route::put('/{id}', [LevelController::class, 'update']); // update data level (non-ajax)
+    Route::get('/{id}/edit_ajax', [LevelController::class, 'edit_ajax']); // form edit level (ajax)
+    Route::put('/{id}/update_ajax', [LevelController::class, 'update_ajax']); // update data level (ajax)
+    Route::get('/{id}/delete_ajax', [LevelController::class, 'confirm_ajax']); // konfirmasi hapus (ajax)
+    Route::delete('/{id}/delete_ajax', [LevelController::class, 'delete_ajax']); // hapus data (ajax)
+    Route::get('/{id}/show_ajax', [LevelController::class, 'show_ajax']); // detail level (ajax)
+    Route::delete('/{id}', [LevelController::class, 'destroy']); // hapus data level (non-ajax)
 });
 
 Route::group(['prefix' => 'kategori'], function () {
