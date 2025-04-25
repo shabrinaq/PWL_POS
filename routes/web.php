@@ -79,14 +79,21 @@ Route::group(['prefix'=>'kategori'], function(){
 });
 
 Route::group(['prefix' => 'barang'], function () {
-    Route::get('/', [BarangController::class, 'index'])->name('barang.index'); // Menampilkan daftar barang
-    Route::post('/list', [BarangController::class, 'list'])->name('barang.list');
-    Route::get('create', [BarangController::class, 'create'])->name('barang.create'); // Menampilkan form tambah barang
-    Route::post('store', [BarangController::class, 'store'])->name('barang.store'); // Menyimpan barang baru
-    Route::get('{id}', [BarangController::class, 'show'])->name('barang.show'); // Menampilkan detail barang
-    Route::get('{id}/edit', [BarangController::class, 'edit'])->name('barang.edit'); // Menampilkan form edit barang
-    Route::put('{id}', [BarangController::class, 'update'])->name('barang.update'); // Update data barang
-    Route::delete('{id}', [BarangController::class, 'destroy'])->name('barang.destroy'); // Hapus barang
+    Route::get('/', [BarangController::class, 'index']);
+    Route::post('/list', [BarangController::class, 'list']);
+    Route::get('/create', [BarangController::class, 'create']);
+    Route::post('/', [BarangController::class, 'store']);
+    Route::get('/create_ajax', [BarangController::class, 'create_ajax']);
+    Route::post('/ajax', [BarangController::class, 'store_ajax']);
+    Route::get('/{id}', [BarangController::class, 'show']);
+    Route::get('/{id}/edit', [BarangController::class, 'edit']);
+    Route::put('/{id}', [BarangController::class, 'update']);
+    Route::get('/{id}/edit_ajax', [BarangController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [BarangController::class, 'update_ajax']);
+    Route::get('/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']);
+    Route::get('/{id}/show_ajax', [BarangController::class, 'show_ajax']);
+    Route::delete('/{id}', [BarangController::class, 'destroy']);
 });
 
 Route::group(['prefix' => 'stok'], function () {

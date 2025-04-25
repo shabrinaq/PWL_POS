@@ -23,6 +23,10 @@
                         <td>{{ $barang->barang_kode }}</td>
                     </tr>
                     <tr>
+                        <th>Kategori </th>
+                        <td>{{ $barang->kategori->nama_kategori }}</td>
+                    </tr>
+                    <tr>
                         <th>Nama Barang</th>
                         <td>{{ $barang->barang_nama }}</td>
                     </tr>
