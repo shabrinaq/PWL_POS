@@ -11,15 +11,13 @@
             <div class="form-group row">
                 <label class="col-1 control-label col-form-label">Kategori</label>
                 <div class="col-11">
-                    <select class="form-control" id="kategori_id" name="kategori_id" required>
-                        <option value="">- Pilih Kategori Barang -</option>
-                        @foreach($kategori as $item)
-                        <option value="{{ $item->kategori_id }}">{{ $item->nama_kategori }}</option>
+                    <select name="kategori_id" id="kategori_id" class="form-control" required>
+                        <option value="">- Pilih Kategori -</option>
+                        @foreach($kategori as $k)
+                            <option value="{{ $k->kategori_id }}">{{ $k->kategori_nama }}</option>
                         @endforeach
                     </select>
-                    @error('kategori_id')
-                    <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
+                    <small id="error-kategori_id" class="error-text form-text text-danger"></small>                               
                 </div>
             </div>
             <div class="form-group row">
