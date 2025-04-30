@@ -8,13 +8,13 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route('stok.store') }}" class="form-horizontal">
+        <form method="POST" action="{{ url('stok') }}" class="form-horizontal">
             @csrf
 
             {{-- Barang --}}
             <div class="form-group row">
-                <label for="barang_id" class="col-2 col-form-label">Nama Barang</label>
-                <div class="col-9">
+                <label for="barang_id" class="col-1 control-label col-form-label">Nama Barang</label>
+                <div class="col-11">
                     <select class="form-control" id="barang_id" name="barang_id" required>
                         <option value="">- Pilih Barang -</option>
                         @foreach($barang as $item)
@@ -31,8 +31,8 @@
 
             {{-- User --}}
             <div class="form-group row">
-                <label for="user_id" class="col-2 col-form-label">Nama User</label>
-                <div class="col-9">
+                <label for="user_id" class="col-1 control-label col-form-label">Nama User</label>
+                <div class="col-11">
                     <select class="form-control" id="user_id" name="user_id" required>
                         <option value="">- Pilih User -</option>
                         @foreach($user as $item)
@@ -49,8 +49,8 @@
 
             {{-- Tanggal --}}
             <div class="form-group row">
-                <label for="stok_tanggal" class="col-2 col-form-label">Tanggal Stok</label>
-                <div class="col-9">
+                <label for="stok_tanggal" class="col-1 control-label col-form-label">Tanggal Stok</label>
+                <div class="col-11">
                     <input type="date" class="form-control" id="stok_tanggal" name="stok_tanggal"
                         value="{{ old('stok_tanggal', date('Y-m-d')) }}" required>
                     @error('stok_tanggal')
@@ -61,8 +61,8 @@
 
             {{-- Jumlah --}}
             <div class="form-group row">
-                <label for="stok_jumlah" class="col-2 col-form-label">Jumlah Stok</label>
-                <div class="col-9">
+                <label for="stok_jumlah" class="col-1 control-label col-form-label">Jumlah Stok</label>
+                <div class="col-11">
                     <input type="number" class="form-control" id="stok_jumlah" name="stok_jumlah"
                         value="{{ old('stok_jumlah') }}" min="1" required>
                     @error('stok_jumlah')
@@ -73,9 +73,10 @@
 
             {{-- Button --}}
             <div class="form-group row">
-                <div class="col-6 offset-2">
+                <label class="col-1 control-label col-form-label"></label>
+                <div class="col-11">
                     <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
-                    <a href="{{ route('stok.index') }}" class="btn btn-sm btn-default ml-1">Kembali</a>
+                    <a href="{{ url('stok') }}" class="btn btn-sm btn-default ml-1">Kembali</a>
                 </div>
             </div>
         </form>
