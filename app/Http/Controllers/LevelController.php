@@ -131,27 +131,23 @@ class LevelController extends Controller
     public function list(Request $request)
     {
         $levels = LevelModel::select('level_id', 'level_kode','level_nama');
-
-        // Filter data level berdasarkan level_id
-        if ($request->level_id) {
-            $levels->where('level_id', $request->level_id);
+    
+        // Gunakan nama parameter dari frontend: kategori_filter
+        if ($request->kategori_filter) {
+            $levels->where('level_id', $request->kategori_filter);
         }
-
+    
         return DataTables::of($levels)
-            // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex) 
             ->addIndexColumn()
-            ->addColumn('aksi', function ($level) {  // menambahkan kolom aksi 
-                $btn  = '<button onclick="modalAction(\'' . url('/level/' . $level->level_id .
-                    '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/level/' . $level->level_id .
-                    '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/level/' . $level->level_id .
-                    '/delete_ajax') . '\')"  class="btn btn-danger btn-sm">Hapus</button> ';
+            ->addColumn('aksi', function ($level) {
+                $btn  = '<button onclick="modalAction(\'' . url('/level/' . $level->level_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
+                $btn .= '<button onclick="modalAction(\'' . url('/level/' . $level->level_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
+                $btn .= '<button onclick="modalAction(\'' . url('/level/' . $level->level_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
                 return $btn;
             })
-            ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html 
+            ->rawColumns(['aksi'])
             ->make(true);
-    }
+    }    
 
     // Menampilkan detail user
     public function show(string $id)
