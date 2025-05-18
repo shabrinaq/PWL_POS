@@ -32,18 +32,6 @@
                 </div>
             </div>
 
-            {{-- Tanggal Penjualan --}}
-            <div class="form-group row">
-                <label class="col-2 control-label col-form-label">Tanggal Penjualan</label>
-                <div class="col-10">
-                    <input type="date" name="penjualan_tanggal" class="form-control"
-                           value="{{ old('penjualan_tanggal', date('Y-m-d')) }}" required>
-                    @error('penjualan_tanggal')
-                        <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
-            </div>
-
             {{-- User --}}
             <div class="form-group row">
                 <label class="col-2 control-label col-form-label">User</label>
@@ -57,6 +45,18 @@
                         @endforeach
                     </select>
                     @error('user_id')
+                        <small class="form-text text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+            </div>
+
+            {{-- Tanggal Penjualan --}}
+            <div class="form-group row">
+                <label class="col-2 control-label col-form-label">Tanggal Penjualan</label>
+                <div class="col-10">
+                    <input type="date" name="penjualan_tanggal" class="form-control"
+                           value="{{ old('penjualan_tanggal', date('Y-m-d')) }}" required>
+                    @error('penjualan_tanggal')
                         <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
                 </div>

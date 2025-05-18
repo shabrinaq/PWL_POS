@@ -114,6 +114,8 @@ Route::middleware(['authorize:ADM,MNG,STF'])->group(function(){
         Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']);
         Route::get('/{id}/show_ajax', [BarangController::class, 'show_ajax']);
         Route::delete('/{id}', [BarangController::class, 'destroy']);
+        Route::get('/import', [BarangController::class, 'import'])->name('barang.import');
+        Route::post('/import_ajax' , [BarangController::class, 'import_ajax']); // ajax import excel
     });
 });
 
@@ -138,13 +140,21 @@ Route::middleware(['authorize:ADM,MNG,STF'])->group(function () {
 });
 
 Route::group(['prefix' => 'penjualan'], function () {
-    Route::get('/', [PenjualanController::class, 'index'])->name('penjualan.index'); // Menampilkan daftar penjualan
-    Route::get('create', [PenjualanController::class, 'create'])->name('penjualan.create'); // Menampilkan form tambah penjualan
-    Route::post('store', [PenjualanController::class, 'store'])->name('penjualan.store'); // Menyimpan penjualan baru
-    Route::get('{id}', [PenjualanController::class, 'show'])->name('penjualan.show'); // Menampilkan detail penjualan 
-    Route::get('{id}/edit', [PenjualanController::class, 'edit'])->name('penjualan.edit'); // Menampilkan form edit penjualan 
-    Route::put('{id}', [PenjualanController::class, 'update'])->name('penjualan.update'); // Update data penjualan 
-    Route::delete('{id}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy'); // Hapus penjualan 
+    Route::get('/', [PenjualanController::class, 'index'])->name('penjualan.index');                           
+    Route::post('/list', [PenjualanController::class, 'list']);                     
+    Route::get('/create', [PenjualanController::class, 'create']);                   
+    Route::post('/', [PenjualanController::class, 'store'])->name('penjualan.store');                         
+    Route::get('/create_ajax', [PenjualanController::class, 'create_ajax']);         
+    Route::post('/ajax', [PenjualanController::class, 'store_ajax'])->name('penjualan.store_ajax');  
+    Route::get('/{id}', [PenjualanController::class, 'show']);                       
+    Route::get('/{id}/show_ajax', [PenjualanController::class, 'show_ajax']);        
+    Route::get('/{id}/edit', [PenjualanController::class, 'edit']);                  
+    Route::get('/{id}/edit_ajax', [PenjualanController::class, 'edit_ajax']);        
+    Route::put('/{id}', [PenjualanController::class, 'update']);                     
+    Route::put('/{id}/update_ajax', [PenjualanController::class, 'update_ajax']);    
+    Route::get('/{id}/delete_ajax', [PenjualanController::class, 'confirm_ajax']);   
+    Route::delete('/{id}/delete_ajax', [PenjualanController::class, 'delete_ajax']); 
+    Route::delete('/{id}', [PenjualanController::class, 'destroy']);                 
 });
 
 Route::middleware(['authorize:ADM,MNG,STF'])->group(function () {

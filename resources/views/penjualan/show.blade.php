@@ -25,6 +25,10 @@
                         <th>Pembeli</th>
                         <td>{{ $penjualan->pembeli }}</td>
                     </tr>
+                     <tr>
+                        <th>User</th>
+                        <td>{{ $penjualan->user->nama }}</td>
+                    </tr>
                     <tr>
                         <th>Tanggal Penjualan</th>
                         <td>{{ $penjualan->penjualan_tanggal }}</td>
