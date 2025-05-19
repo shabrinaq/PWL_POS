@@ -115,7 +115,7 @@ Route::middleware(['authorize:ADM,MNG,STF'])->group(function(){
         Route::get('/{id}/show_ajax', [BarangController::class, 'show_ajax']);
         Route::delete('/{id}', [BarangController::class, 'destroy']);
         Route::get('/import', [BarangController::class, 'import'])->name('barang.import');
-        Route::post('/import_ajax' , [BarangController::class, 'import_ajax']); // ajax import excel
+        Route::post('/import_ajax' , [BarangController::class, 'import_ajax']);
     });
 });
 

@@ -3,10 +3,13 @@
 @section('content')
     <div class="card card-outline card-primary">
         <div class="card-header">
+            @isset($page)
             <h3 class="card-title">{{ $page->title }}</h3>
+            @endisset
             <div class="card-tools">
                 <a class="btn btn-sm btn-primary mt-1" href="{{ url('barang/create') }}">Tambah</a>
                 <button onclick="modalAction('{{ url('barang/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
+                <button onclick="modalAction('{{ url('barang/import') }}')" class="btn btn-sm btn-success mt-1">Import Barang</button>
             </div>
         </div>
         <div class="card-body">
@@ -40,7 +43,7 @@
                         <th>Nama Barang</th>
                         <th>Harga Beli</th>
                         <th>Harga Jual</th>
-                        <th>Aksi</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
             </table>
@@ -62,18 +65,17 @@
             var dataBarang;
             $(document).ready(function () {
                 dataBarang = $('#table_barang').DataTable({
-                    // serverSide: true, jika ingin menggunakan server side processing 
                     serverSide: true,
                     ajax: {
                         "url": "{{ url('barang/list') }}",
                         "dataType": "json",
                         "type": "POST",
                         "data": function (d) {
-                            d.kategori_id = $('#kategori_id').val();
+                            d.filter_kategori = $('#kategori_id').val();
                         }
                     },
                     columns: [
-                        {  // nomor urut dari laravel datatable addIndexColumn() 
+                        {  
                             data: "DT_RowIndex",
                             className: "text-center",
                             orderable: false,
@@ -81,30 +83,24 @@
                         }, {
                             data: "barang_kode",
                             className: "",
-                            // orderable: true, jika ingin kolom ini bisa diurutkan  
                             orderable: true,
-                            // searchable: true, jika ingin kolom ini bisa dicari 
                             searchable: true
                         }, {
                             data: "kategori.kategori_nama",
-                            className: "",
-                            // orderable: true, jika ingin kolom ini bisa diurutkan  
+                            className: "",  
                             orderable: true,
-                            // searchable: true, jika ingin kolom ini bisa dicari 
                             searchable: true
                         }, {
                             data: "barang_nama",
                             className: "",
                             orderable: true,
                             searchable: true
-                        }, {
-                            // mengambil data level hasil dari ORM berelasi 
+                        }, { 
                             data: "harga_beli",
                             className: "",
                             orderable: true,
                             searchable: false
                         }, {
-                            // mengambil data level hasil dari ORM berelasi 
                             data: "harga_jual",
                             className: "",
                             orderable: true,
