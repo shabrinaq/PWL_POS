@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\IOFactory; 
 use Yajra\DataTables\Facades\DataTables;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class BarangController extends Controller
 {
@@ -371,4 +372,61 @@ class BarangController extends Controller
             ]);
         }
     }
+
+     public function export_excel()
+    {
+        // ambil data barang yang akan di export
+        $barang = Barang::select('kategori_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual')
+            ->orderBy('kategori_id')
+            ->with('kategori')
+            ->get();
+
+        // Load library spreadsheet
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet(); // ambil sheet yang aktif
+
+        // Set header (judul kolom)
+        $sheet->setCellValue('A1', 'No')
+            ->setCellValue('B1', 'Kode Barang')
+            ->setCellValue('C1', 'Nama Barang')
+            ->setCellValue('D1', 'Harga Beli')
+            ->setCellValue('E1', 'Harga Jual')
+            ->setCellValue('F1', 'Kategori');
+
+        $sheet->getStyle('A1:F1')->getFont()->setBold(true); // bold header
+
+        $no = 1; // nomor data dimulai dari 1
+        $row = 2; // baris data dimulai dari baris ke 2
+
+        foreach ($barang as $key => $value) {
+            $sheet->setCellValue('A' . $row, $no++)
+                ->setCellValue('B' . $row, $value->barang_kode)
+                ->setCellValue('C' . $row, $value->barang_nama)
+                ->setCellValue('D' . $row, $value->harga_beli)
+                ->setCellValue('E' . $row, $value->harga_jual)
+                ->setCellValue('F' . $row, $value->kategori->kategori_nama); // ambil namakategori
+
+            $row++;
+        }
+
+        foreach (range('A', 'F') as $columnID) {
+            $sheet->getColumnDimension($columnID)->setAutoSize(true); // set auto size untuk kolom
+        }
+
+        $sheet->setTitle('Data Barang'); // set title sheet
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $filename = 'Data Barang ' . date('Y-m-d H-i-s') . '.xlsx';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+        header('Cache-Control: max-age=1');
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+        header('Cache-Control: cache, must-revalidate');
+        header('Pragma: public');
+
+        $writer->save('php://output');
+        exit;
+    } // end function export_excel
 }
