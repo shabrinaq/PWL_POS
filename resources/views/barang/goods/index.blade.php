@@ -46,7 +46,7 @@
         <table class="table table-bordered table-sm table-striped table-hover" id="table-barang">
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th>ID</th>
                     <th>Kode Barang</th>
                     <th>Nama Kategori</th>
                     <th>Nama Barang</th>

@@ -50,4 +50,11 @@ class UserModel extends Authenticatable
     {
         return $this->level->level_kode;
     }
+
+    public function getProfilePictureUrl()
+    {
+        return $this->image
+            ? asset($this->image) // karena langsung di public/
+            : asset('adminlte/dist/img/user2-160x160.jpg');
+    }
 }

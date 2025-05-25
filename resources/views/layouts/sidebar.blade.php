@@ -18,7 +18,12 @@
               <a href="{{ url('/') }}" class="nav-link {{ ($activeMenu == 'dashboard') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>Dashboard</p>
-              </a>
+
+                  <a href="{{ url('/profile') }}" class="nav-link {{ ($activeMenu == 'profile') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-user-circle"></i>
+                        <p>profile</p>
+                    </a>
+                </a>
           </li>
 
           <li class="nav-header">User Data</li>

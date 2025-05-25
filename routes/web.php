@@ -171,4 +171,6 @@ Route::middleware(['authorize:ADM,MNG,STF'])->group(function () {
     });
 });
 
+    Route::get('/profile', [UserController::class, 'profile']);
+    Route::post('/profile/update-picture', [UserController::class, 'updateProfilePicture']);
 });
