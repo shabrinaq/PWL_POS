@@ -58,7 +58,7 @@ class UserModel extends Authenticatable implements JWTSubject
     protected function image(): Attribute
     {
         return Attribute::make(
-            get: fn($image) => url("/storage/posts/{$image}")
+            get: fn($image) => $image ? "storage/posts/{$image}" : null,        
         );
     }
 
@@ -72,8 +72,8 @@ class UserModel extends Authenticatable implements JWTSubject
 
     public function getProfilePictureUrl()
     {
-        return $this->image
-            ? asset($this->image) // karena langsung di public/
-            : asset('adminlte/dist/img/user2-160x160.jpg');
+    return $this->image
+        ? asset($this->image) // Misalnya: /storage/posts/abc.jpg
+        : asset('adminlte/dist/img/user2-160x160.jpg'); // Default
     }
 }

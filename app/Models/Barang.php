@@ -20,8 +20,11 @@ class Barang extends Model
         'barang_nama',
         'barang_kode',
         'harga_beli',
-        'harga_jual'
+        'harga_jual',
+        'image'
     ];
+    
+    protected $casts = ['image' => 'string'];
 
     public function kategori(): BelongsTo
     {
